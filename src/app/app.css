@@ -252,6 +252,11 @@ body {
   color: #fff;
   font-weight: 700;
 }
+.pill-link {
+  cursor: pointer;
+  color: white;
+  text-decoration: none;
+}
 .contact-line {
   font-family: 'Raleway', sans-serif;
   font-size: clamp(11px, 2vw, 13px);

@@ -61,4 +61,49 @@ export class App implements OnInit, OnDestroy {
     update();
     this.interval = window.setInterval(update, 1000);
   }
+
+  /**
+   * Try to open a native maps app on the device. Falls back to Google Maps web URL.
+   */
+  openMap(event?: Event) {
+  if (event) event.preventDefault();
+
+  const lat = -6.7924;
+  const lng = 39.2083;
+  const label = encodeURIComponent('Tanzanite Hall');
+
+  const googleMaps = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
+  const appleMaps = `https://maps.apple.com/?q=${lat},${lng}`;
+
+  const deepLinks = {
+    android: `intent://maps.google.com/maps?daddr=${lat},${lng}#Intent;package=com.google.android.apps.maps;scheme=https;end`,
+    ios: appleMaps,
+  };
+
+  const ua = navigator.userAgent || '';
+  const isIOS = /iPhone|iPad|iPod/.test(ua);
+  const isAndroid = /Android/.test(ua);
+
+  const fallback = () => {
+    window.open(googleMaps, '_blank', 'noopener');
+  };
+
+  try {
+    if (isAndroid) {
+      window.location.href = deepLinks.android;
+      setTimeout(fallback, 800);
+      return;
+    }
+
+    if (isIOS) {
+      window.location.href = deepLinks.ios;
+      setTimeout(fallback, 800);
+      return;
+    }
+
+    fallback();
+  } catch {
+    fallback();
+  }
+}
 }
