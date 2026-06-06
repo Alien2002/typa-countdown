@@ -68,8 +68,8 @@ export class App implements OnInit, OnDestroy {
   openMap(event?: Event) {
   if (event) event.preventDefault();
 
-  const lat = -6.7924;
-  const lng = 39.2083;
+  const lat = -6.7725;
+  const lng = 39.2405;
   const label = encodeURIComponent('Tanzanite Hall');
 
   const googleMaps = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
